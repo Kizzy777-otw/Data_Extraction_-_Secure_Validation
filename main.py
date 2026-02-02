@@ -6,7 +6,7 @@ with open("feedback_input.txt", "r", encoding="utf-8") as f:
 
 # the regex pattterns
 patterns = {
-    "emails found": re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"),
+    "emails found": re.compile(r"\S+@\S+\.\S+"),
     # checking email adress
     "urls found": re.compile(r"https?://[A-Za-z0-9.-]+(?:/[^\s]*)?"),
     # Only accepting http/https URL links
