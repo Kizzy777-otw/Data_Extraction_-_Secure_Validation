@@ -8,13 +8,14 @@ with open("feedback_input.txt", "r", encoding="utf-8") as f:
 patterns = {
     "emails found": re.compile(r"\S+@\S+\.\S+"),
     # checking email adress
-    "urls found": re.compile(r"https?://[A-Za-z0-9.-]+(?:/[^\s]*)?"),
+    "urls found": re.compile(r"https?://\S+"),
+
     # Only accepting http/https URL links
 
-    "phone numbers found (Rwanda)": re.compile(r"\b(?:\+250\s?\d{9}|0\d{9})\b"),
-    # Checking Rwanda phone numbers: +250785774712, +250 0785774712, 0785774712
+    "phone numbers found (Rwanda)": re.compile(r"(?:\+250\d{9}|0\d{9})"),
+    # Checking Rwanda phone numbers: +250785774712 and 0785774712 common formats
 
-    "credit_cards found": re.compile(r"\b(?:\d{4}[-\s]?){3}\d{4}\b"),
+    "credit_cards": re.compile(r"(?:\d{4}[- ]?){3}\d{4}"),
     # Card numbers with spaces or dashes
 
     "times found": re.compile(r"\b(?:[01]?\d|2[0-3]):[0-5]\d(?:\s?[APMapm]{2})?\b"),
