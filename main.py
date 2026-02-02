@@ -15,25 +15,28 @@ patterns = {
     "phone numbers found (Rwanda)": re.compile(r"(?:\+250\d{9}|0\d{9})"),
     # Checking Rwanda phone numbers: +250785774712 and 0785774712 common formats
 
-    "credit_cards": re.compile(r"(?:\d{4}[- ]?){3}\d{4}"),
+    "credit_cards found" : re.compile(r"(?:\d{4}[- ]?){3}\d{4}"),
     # Card numbers with spaces or dashes
 
-    "times found": re.compile(r"\b(?:[01]?\d|2[0-3]):[0-5]\d(?:\s?[APMapm]{2})?\b"),
-    # 24-hour and 12-hour times
+    "times found": re.compile(r"\d{1,2}:\d{2}(?:\s?[APMapm]{2})?"),
+    #checking fir both 24-hour and 12-hour times
 
     "hashtags found": re.compile(r"#\w+"),
     # Checking for hashtags
 
-       "currency found": re.compile(r"RWF\s\d{1,3}(?:,\d{3})*"),
+    "currency found": re.compile(r"RWF\s\d{1,3}(?:,\d{3})*"),
+
     # RWF currency amounts with no decimals
 }
 
 # Extracting  and print results
+
 for key, pattern in patterns.items():
     matches = pattern.findall(text)
-    if key == "credit_cards":
-        # we hide the last 4 digits for security
-        matches = [m[:-4] + "****" for m in matches]
+
+    # we hide the last 4 digits for security
+    if "credit_cards" in key:
+        matches = [re.sub(r"\d{4}$", "****", m) for m in matches]
 
     print(f"{key.capitalize()}:")
     if matches:
